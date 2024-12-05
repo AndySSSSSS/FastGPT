@@ -26,7 +26,7 @@ RUN [ -f pnpm-lock.yaml ] || (echo "Lockfile not found." && exit 1)
 #        pnpm i --registry=https://registry.npmmirror.com; \
 #    fi
 
-RUN pnpm i  --registry=https://registry.npmmirror.com
+RUN pnpm i  --registry=http://registry.npm.taobao.org
 
 # --------- builder -----------
 FROM node:22-alpine AS builder
