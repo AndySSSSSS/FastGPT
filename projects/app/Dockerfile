@@ -20,11 +20,13 @@ COPY ./projects/app/package.json ./projects/app/package.json
 RUN [ -f pnpm-lock.yaml ] || (echo "Lockfile not found." && exit 1)
 
 # if proxy exists, set proxy
-RUN if [ -z "$proxy" ]; then \
-        pnpm i; \
-    else \
-        pnpm i --registry=https://registry.npmmirror.com; \
-    fi
+#RUN if [ -z "$proxy" ]; then \
+#        pnpm i; \
+#    else \
+#        pnpm i --registry=https://registry.npmmirror.com; \
+#    fi
+
+RUN pnpm i  --registry=https://registry.npmmirror.com
 
 # --------- builder -----------
 FROM node:22-alpine AS builder
