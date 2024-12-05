@@ -1,11 +1,14 @@
 # --------- install dependence -----------
-FROM node:20.14.0-alpine AS maindeps
+FROM node:22-alpine AS maindeps
 WORKDIR /app
+
+RUN node -v && npm -v
 
 ARG proxy
 
 RUN [ -z "$proxy" ] || sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
-RUN apk add --no-cache libc6-compat && npm install -g pnpm@9.4.0
+RUN apk add --no-cache libc6-compat
+RUN npm install -g pnpm@9.4.0
 
 # copy packages and one project
 COPY pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
@@ -22,7 +25,7 @@ RUN if [ -z "$proxy" ]; then \
     fi
 
 # --------- builder -----------
-FROM node:20.14.0-alpine AS builder
+FROM node:22-alpine AS builder
 WORKDIR /app
 
 ARG proxy
@@ -44,7 +47,7 @@ ENV NEXT_PUBLIC_BASE_URL=$base_url
 RUN pnpm --filter=app build
 
 # --------- runner -----------
-FROM node:20.14.0-alpine AS runner
+FROM node:22-alpine AS runner
 WORKDIR /app
 
 ARG proxy
@@ -55,8 +58,8 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 RUN [ -z "$proxy" ] || sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
-RUN apk add --no-cache curl ca-certificates \
-  && update-ca-certificates
+RUN apk add --no-cache curl ca-certificates
+RUN update-ca-certificates
 
 # copy running files
 COPY --from=builder /app/projects/app/public /app/projects/app/public
