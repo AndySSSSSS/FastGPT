@@ -8,6 +8,8 @@ ARG proxy
 
 RUN [ -z "$proxy" ] || sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
 RUN apk add --no-cache libc6-compat
+
+RUN npm config set registry http://registry.npm.taobao.org
 RUN npm install -g pnpm@9.4.0
 
 # copy packages and one project
