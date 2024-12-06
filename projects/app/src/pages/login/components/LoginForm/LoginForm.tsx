@@ -123,25 +123,7 @@ const LoginForm = ({ setPageType, loginSuccess }: Props) => {
             fontSize={'mini'}
             color={'myGray.700'}
             fontWeight={'medium'}
-          >
-            {t('login:policy_tip')}
-            <Link
-              ml={1}
-              href={getDocPath('/docs/agreement/terms/')}
-              target={'_blank'}
-              color={'primary.700'}
-            >
-              {t('login:terms')}
-            </Link>
-            <Box mx={1}>&</Box>
-            <Link
-              href={getDocPath('/docs/agreement/privacy/')}
-              target={'_blank'}
-              color={'primary.700'}
-            >
-              {t('login:privacy')}
-            </Link>
-          </Flex>
+          ></Flex>
         )}
 
         <Button

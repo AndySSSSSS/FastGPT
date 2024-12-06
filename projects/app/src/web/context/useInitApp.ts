@@ -18,14 +18,13 @@ export const useInitApp = () => {
       feConfigs: { scripts, isPlus, systemTitle }
     } = await clientInitData();
 
-    setTitle(systemTitle || 'FastGPT');
+    setTitle(systemTitle || 'WudaoAI');
 
     // log fastgpt
     if (!isPlus) {
       console.log(
-        '%cWelcome to FastGPT',
-        'font-family:Arial; color:#3370ff ; font-size:18px; font-weight:bold;',
-        `GitHub：https://github.com/labring/FastGPT`
+        '%cWelcome to WudaoAI',
+        'font-family:Arial; color:#3370ff ; font-size:18px; font-weight:bold;'
       );
     }
 
