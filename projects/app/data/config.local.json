@@ -10,12 +10,12 @@
     "pgHNSWEfSearch": 100 // 向量搜索参数。越大，搜索越精确，但是速度越慢。设置为100，有99%+精度。
   },
   "llmModels": [
-     {
+    {
       "model": "qwen-turbo",
       "name": "qwen-turbo",
       "avatar": "/imgs/model/qwen.svg",
-      "maxContext": 125000,
-      "maxResponse": 4000,
+      "maxContext": 131072,
+      "maxResponse": 8192,
       "quoteMaxToken": 120000,
       "maxTemperature": 1.2,
       "charsPointsPrice": 0,
@@ -42,7 +42,7 @@
       "avatar": "/imgs/model/qwen.svg",
       "charsPointsPrice": 0,
       "defaultToken": 512,
-      "maxToken": 3000,
+      "maxToken": 8192,
       "weight": 100,
       "defaultConfig": {
         "dimensions": 1024

@@ -1,0 +1,41 @@
+# 数据库的默认账号和密码仅首次运行时设置有效
+# 如果修改了账号密码，记得改数据库和项目连接参数，别只改一处~
+# 该配置文件只是给快速启动，测试使用。正式使用，记得务必修改账号密码，以及调整合适的知识库参数，共享内存等。
+
+version: '3.3'
+services:
+  fastgpt:
+    container_name: fastgpt
+    image: sczhoustill/fastgpt:v4.8.14-amd
+    ports:
+      - 3000:3000
+    networks:
+      - fastgpt
+    restart: always
+    environment:
+      # root 密码，用户名为: root。如果需要修改 root 密码，直接修改这个环境变量，并重启即可。
+      - DEFAULT_ROOT_PSW=wudao123
+      # AI模型的API地址哦。务必加 /v1。这里默认填写了OneApi的访问地址。
+      - OPENAI_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
+      # AI模型的API Key。（这里默认填写了OneAPI的快速默认key，测试通后，务必及时修改）
+      - CHAT_API_KEY=sk-6090dee36927431cb8df744e350b463f
+      # 数据库最大连接数
+      - DB_MAX_LINK=30
+      # 登录凭证密钥
+      - TOKEN_KEY=any
+      # root的密钥，常用于升级时候的初始化请求
+      - ROOT_KEY=root_key
+      # 文件阅读加密
+      - FILE_TOKEN_KEY=filetoken
+      # MongoDB 连接参数. 用户名myusername,密码mypassword。
+      - MONGODB_URI=mongodb://admin:admin123@172.23.38.26:27087/assistant?authSource=admin&directConnection=true
+      # pg 连接参数
+      - PG_URL=postgresql://wudao:wudao123@172.23.38.26:15432/assistant
+    volumes:
+      - ./config.json:/app/data/config.json
+      - ./fastgpt/tmp:/app/tmp
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+
+networks:
+  fastgpt:
