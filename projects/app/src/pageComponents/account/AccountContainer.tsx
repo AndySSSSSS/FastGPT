@@ -72,16 +72,20 @@ const AccountContainer = ({
           }
         ]
       : []),
-    {
-      icon: 'common/thirdParty',
-      label: t('account:third_party'),
-      value: TabEnum.thirdParty
-    },
-    {
-      icon: 'common/model',
-      label: t('account:model_provider'),
-      value: TabEnum.model
-    },
+    ...(userInfo?.username == 'root'
+      ? [
+          {
+            icon: 'common/thirdParty',
+            label: t('account:third_party'),
+            value: TabEnum.thirdParty
+          },
+          {
+            icon: 'common/model',
+            label: t('account:model_provider'),
+            value: TabEnum.model
+          }
+        ]
+      : []),
     ...(feConfigs?.show_promotion && userInfo?.team?.permission.isOwner
       ? [
           {
@@ -91,7 +95,7 @@ const AccountContainer = ({
           }
         ]
       : []),
-    ...(userInfo?.team?.permission.hasManagePer
+    ...(userInfo?.team?.permission.hasManagePer && userInfo?.username == 'root'
       ? [
           {
             icon: 'key',
