@@ -77,7 +77,11 @@ const ChatHistorySlider = ({ confirmClearText }: { confirmClearText: string }) =
   });
 
   const canRouteToDetail = useMemo(
-    () => appId && userInfo?.team.permission.hasWritePer && showRouteToAppDetail,
+    () =>
+      appId &&
+      userInfo?.username == 'root' &&
+      userInfo?.team.permission.hasWritePer &&
+      showRouteToAppDetail,
     [appId, userInfo?.team.permission.hasWritePer, showRouteToAppDetail]
   );
 
@@ -101,13 +105,13 @@ const ChatHistorySlider = ({ confirmClearText }: { confirmClearText: string }) =
             alignItems={'center'}
             cursor={canRouteToDetail ? 'pointer' : 'default'}
             fontSize={'sm'}
-            // onClick={() =>
-            //   canRouteToDetail &&
-            //   router.push({
-            //     pathname: '/app/detail',
-            //     query: { appId }
-            //   })
-            // }
+            onClick={() =>
+              canRouteToDetail &&
+              router.push({
+                pathname: '/app/detail',
+                query: { appId }
+              })
+            }
           >
             <Avatar src={appAvatar} borderRadius={'md'} />
             <Box flex={'1 0 0'} w={0} ml={2} fontWeight={'bold'} className={'textEllipsis'}>
