@@ -78,7 +78,7 @@ export const useSystemStore = create<State>()(
             state.initd = true;
           });
         },
-        lastRoute: '/app/list',
+        lastRoute: '/account/info',
         setLastRoute(e) {
           set((state) => {
             state.lastRoute = e;

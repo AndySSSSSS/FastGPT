@@ -64,7 +64,7 @@ const SliderApps = ({ apps, activeAppId }: { apps: AppListItemType[]; activeAppI
               px={3}
               borderRadius={'md'}
               _hover={{ bg: 'myGray.200' }}
-              onClick={() => router.push('/app/list')}
+              onClick={() => router.push('/account/info')}
             >
               <IconButton
                 mr={3}
