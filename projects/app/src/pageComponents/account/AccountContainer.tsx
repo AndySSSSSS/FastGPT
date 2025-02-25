@@ -164,12 +164,16 @@ const AccountContainer = ({
               value={currentTab}
               onChange={setCurrentTab}
             />
-            <Flex alignItems={'center'}>
-              <Box w={'8px'} h={'8px'} borderRadius={'50%'} bg={'#67c13b'} />
-              <Box fontSize={'md'} ml={2}>
-                V{systemVersion}
-              </Box>
-            </Flex>
+            {userInfo?.username == 'root' ? (
+              <Flex alignItems={'center'}>
+                <Box w={'8px'} h={'8px'} borderRadius={'50%'} bg={'#67c13b'} />
+                <Box fontSize={'md'} ml={2}>
+                  V{systemVersion}
+                </Box>
+              </Flex>
+            ) : (
+              <div></div>
+            )}
           </Flex>
         ) : (
           <Box mb={3}>
