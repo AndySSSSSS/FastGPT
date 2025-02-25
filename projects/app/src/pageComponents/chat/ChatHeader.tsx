@@ -274,16 +274,16 @@ export const PcHeader = ({
             : t('common:core.chat.History Amount', { amount: totalRecordsCount })}
         </Box>
       </MyTag>
-      {!!chatModels && chatModels.length > 0 && (
-        <MyTooltip label={chatModels.join(',')}>
-          <MyTag ml={2} colorSchema={'green'}>
-            <MyIcon name={'core/chat/chatModelTag'} w={'14px'} />
-            <Box ml={1} maxW={'200px'} className="textEllipsis">
-              {chatModels.join(',')}
-            </Box>
-          </MyTag>
-        </MyTooltip>
-      )}
+      {/*{!!chatModels && chatModels.length > 0 && (*/}
+      {/*  <MyTooltip label={chatModels.join(',')}>*/}
+      {/*    <MyTag ml={2} colorSchema={'green'}>*/}
+      {/*      <MyIcon name={'core/chat/chatModelTag'} w={'14px'} />*/}
+      {/*      <Box ml={1} maxW={'200px'} className="textEllipsis">*/}
+      {/*        {chatModels.join(',')}*/}
+      {/*      </Box>*/}
+      {/*    </MyTag>*/}
+      {/*  </MyTooltip>*/}
+      {/*)}*/}
     </>
   );
 };
