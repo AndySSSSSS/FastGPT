@@ -42,57 +42,75 @@ const Navbar = ({ unread }: { unread: number }) => {
   const { gitStar, feConfigs } = useSystemStore();
   const { lastChatAppId } = useChatStore();
 
-  const navbarList = useMemo(
-    () => [
-      {
-        label: t('common:navbar.Chat'),
-        icon: 'core/chat/chatLight',
-        activeIcon: 'core/chat/chatFill',
-        link: `/chat?appId=${lastChatAppId}`,
-        activeLink: ['/chat']
-      },
-      {
-        label: t('common:navbar.Studio'),
-        icon: 'core/app/aiLight',
-        activeIcon: 'core/app/aiFill',
-        link: `/app/list`,
-        activeLink: ['/app/list', '/app/detail']
-      },
-      {
-        label: t('common:navbar.Datasets'),
-        icon: 'core/dataset/datasetLight',
-        activeIcon: 'core/dataset/datasetFill',
-        link: `/dataset/list`,
-        activeLink: ['/dataset/list', '/dataset/detail']
-      },
-      {
-        label: t('common:navbar.Toolkit'),
-        icon: 'phoneTabbar/tool',
-        activeIcon: 'phoneTabbar/toolFill',
-        link: `/toolkit`,
-        activeLink: ['/toolkit']
-      },
-      {
-        label: t('common:navbar.Account'),
-        icon: 'support/user/userLight',
-        activeIcon: 'support/user/userFill',
-        link: '/account/info',
-        activeLink: [
-          '/account/bill',
-          '/account/info',
-          '/account/team',
-          '/account/usage',
-          '/account/thirdParty',
-          '/account/apikey',
-          '/account/setting',
-          '/account/inform',
-          '/account/promotion',
-          '/account/model'
-        ]
-      }
-    ],
-    [lastChatAppId, t]
-  );
+  const navbarList = useMemo(() => {
+    if (userInfo?.username == 'root') {
+      return [
+        {
+          label: t('common:navbar.Chat'),
+          icon: 'core/chat/chatLight',
+          activeIcon: 'core/chat/chatFill',
+          link: `/chat?appId=${lastChatAppId}`,
+          activeLink: ['/chat']
+        },
+        {
+          label: t('common:navbar.Studio'),
+          icon: 'core/app/aiLight',
+          activeIcon: 'core/app/aiFill',
+          link: `/app/list`,
+          activeLink: ['/app/list', '/app/detail']
+        },
+        {
+          label: t('common:navbar.Datasets'),
+          icon: 'core/dataset/datasetLight',
+          activeIcon: 'core/dataset/datasetFill',
+          link: `/dataset/list`,
+          activeLink: ['/dataset/list', '/dataset/detail']
+        },
+        {
+          label: t('common:navbar.Toolkit'),
+          icon: 'phoneTabbar/tool',
+          activeIcon: 'phoneTabbar/toolFill',
+          link: `/toolkit`,
+          activeLink: ['/toolkit']
+        },
+        {
+          label: t('common:navbar.Account'),
+          icon: 'support/user/userLight',
+          activeIcon: 'support/user/userFill',
+          link: '/account/info',
+          activeLink: [
+            '/account/bill',
+            '/account/info',
+            '/account/team',
+            '/account/usage',
+            '/account/thirdParty',
+            '/account/apikey',
+            '/account/setting',
+            '/account/inform',
+            '/account/promotion',
+            '/account/model'
+          ]
+        }
+      ];
+    } else {
+      return [
+        {
+          label: t('common:navbar.Chat'),
+          icon: 'core/chat/chatLight',
+          activeIcon: 'core/chat/chatFill',
+          link: `/chat?appId=${lastChatAppId}`,
+          activeLink: ['/chat']
+        },
+        {
+          label: t('common:navbar.Account'),
+          icon: 'support/user/userLight',
+          activeIcon: 'support/user/userFill',
+          link: '/account/info',
+          activeLink: ['/account/info', '/account/setting']
+        }
+      ];
+    }
+  }, [lastChatAppId, t]);
 
   const isSecondNavbarPage = useMemo(() => {
     return ['/toolkit'].includes(router.pathname);
