@@ -263,7 +263,7 @@ function CookiesDrawer({ onClose, onAgree }: { onClose: () => void; onAgree: () 
   const { t } = useTranslation();
 
   return (
-    <Drawer placement="bottom" size={'xs'} isOpen={true} onClose={onClose}>
+    <Drawer placement="bottom" size={'xs'} isOpen={false} onClose={onClose}>
       <DrawerOverlay backgroundColor={'rgba(0,0,0,0.2)'} />
       <DrawerContent py={'1.75rem'} px={'3rem'}>
         <DrawerCloseButton size={'sm'} />
