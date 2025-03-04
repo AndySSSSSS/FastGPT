@@ -146,7 +146,7 @@ const AppListContextProvider = ({ children }: { children: ReactNode }) => {
   const contextValue: AppListContextType = {
     parentId,
     appType: type,
-    myApps: data,
+    myApps: data.sort((a, b) => a.name.localeCompare(b.name, 'zh-Hans-CN')),
     loadMyApps,
     refetchFolderDetail,
     isFetchingApps,
