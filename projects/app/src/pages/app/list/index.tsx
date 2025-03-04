@@ -184,32 +184,32 @@ const MyApps = () => {
 
             {isPc && RenderSearchInput}
 
-            {isPc && (
-              <Flex
-                alignItems={'center'}
-                gap={1.5}
-                border={'1px solid'}
-                borderColor={'myGray.250'}
-                h={9}
-                px={4}
-                fontSize={'14px'}
-                fontWeight={'medium'}
-                bg={'white'}
-                rounded={'sm'}
-                cursor={'pointer'}
-                boxShadow={
-                  '0px 1px 2px 0px rgba(19, 51, 107, 0.05), 0px 0px 1px 0px rgba(19, 51, 107, 0.08)'
-                }
-                _hover={{
-                  bg: 'primary.50',
-                  color: 'primary.600'
-                }}
-                onClick={() => setTemplateModalType('all')}
-              >
-                <MyImage src={'/imgs/app/templateFill.svg'} w={'18px'} />
-                {t('app:template_market')}
-              </Flex>
-            )}
+            {/*{isPc && (*/}
+            {/*  <Flex*/}
+            {/*    alignItems={'center'}*/}
+            {/*    gap={1.5}*/}
+            {/*    border={'1px solid'}*/}
+            {/*    borderColor={'myGray.250'}*/}
+            {/*    h={9}*/}
+            {/*    px={4}*/}
+            {/*    fontSize={'14px'}*/}
+            {/*    fontWeight={'medium'}*/}
+            {/*    bg={'white'}*/}
+            {/*    rounded={'sm'}*/}
+            {/*    cursor={'pointer'}*/}
+            {/*    boxShadow={*/}
+            {/*      '0px 1px 2px 0px rgba(19, 51, 107, 0.05), 0px 0px 1px 0px rgba(19, 51, 107, 0.08)'*/}
+            {/*    }*/}
+            {/*    _hover={{*/}
+            {/*      bg: 'primary.50',*/}
+            {/*      color: 'primary.600'*/}
+            {/*    }}*/}
+            {/*    onClick={() => setTemplateModalType('all')}*/}
+            {/*  >*/}
+            {/*    <MyImage src={'/imgs/app/templateFill.svg'} w={'18px'} />*/}
+            {/*    {t('app:template_market')}*/}
+            {/*  </Flex>*/}
+            {/*)}*/}
 
             {(folderDetail
               ? folderDetail.permission.hasWritePer && folderDetail?.type !== AppTypeEnum.httpPlugin
