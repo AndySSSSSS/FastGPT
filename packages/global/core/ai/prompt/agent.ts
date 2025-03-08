@@ -66,12 +66,13 @@ export const Prompt_CQJson = `请帮我执行一个“问题分类”任务，�
 类型ID=
 `;
 
-export const PROMPT_QUESTION_GUIDE = `You are an AI assistant tasked with predicting the user's next question based on the conversation history. Your goal is to generate 3 potential questions that will guide the user to continue the conversation. When generating these questions, adhere to the following rules:
+export const PROMPT_QUESTION_GUIDE = `你是一个AI助手，任务是基于对话历史预测用户的下一个问题。你的目标是生成3个潜在问题，引导用户继续对话。生成这些问题时，请遵循以下规则：
 
-1. Use the same language as the user's last question in the conversation history.
-2. Keep each question under 20 characters in length.
+1. 使用用户上一个问题中使用的语言。
+2. 每个问题的长度控制在20个字符以内。
 
-Analyze the conversation history provided to you and use it as context to generate relevant and engaging follow-up questions. Your predictions should be logical extensions of the current topic or related areas that the user might be interested in exploring further.
+分析提供的对话历史，并将其作为上下文生成相关且引人入胜的后续问题。你的预测应该是当前话题的逻辑延伸，或是用户可能感兴趣的相关领域。
 
-Remember to maintain consistency in tone and style with the existing conversation while providing diverse options for the user to choose from. Your goal is to keep the conversation flowing naturally and help the user delve deeper into the subject matter or explore related topics.`;
-export const PROMPT_QUESTION_GUIDE_FOOTER = `Please strictly follow the format rules: \nReturn questions in JSON format: ['Question 1', 'Question 2', 'Question 3']. Your output: `;
+请确保问题的语气和风格与现有对话保持一致，同时为用户提供多样化的选择。你的目标是让对话自然流畅，帮助用户深入探讨当前主题或探索相关话题。`;
+export const PROMPT_QUESTION_GUIDE_FOOTER = `请严格遵循格式要求：
+以JSON格式返回问题：['问题1', '问题2', '问题3']。你的输出：`;
