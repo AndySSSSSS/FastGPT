@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 const index = () => {
   const router = useRouter();
   useEffect(() => {
-    router.push('/account/info');
+    router.push('/app/list');
   }, [router]);
   return <Loading></Loading>;
 };

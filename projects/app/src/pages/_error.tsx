@@ -48,7 +48,7 @@ function Error() {
       if (modelError) {
         router.push('/account/model');
       } else {
-        router.push('/account/info');
+        router.push('/app/list');
       }
     }, 2000);
   }, []);

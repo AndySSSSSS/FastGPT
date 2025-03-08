@@ -102,6 +102,13 @@ const Navbar = ({ unread }: { unread: number }) => {
           activeLink: ['/chat']
         },
         {
+          label: t('common:navbar.Studio'),
+          icon: 'core/app/aiLight',
+          activeIcon: 'core/app/aiFill',
+          link: `/app/list`,
+          activeLink: ['/app/list', '/app/detail']
+        },
+        {
           label: t('common:navbar.Account'),
           icon: 'support/user/userLight',
           activeIcon: 'support/user/userFill',

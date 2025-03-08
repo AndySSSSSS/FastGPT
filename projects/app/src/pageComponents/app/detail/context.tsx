@@ -137,7 +137,7 @@ const AppContextProvider = ({ children }: { children: ReactNode }) => {
       refreshDeps: [appId],
       errorToast: t('common:core.app.error.Get app failed'),
       onError(err: any) {
-        router.replace('/account/info');
+        router.replace('/app/list');
       },
       onSuccess(res) {
         setAppDetail(res);

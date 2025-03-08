@@ -86,7 +86,7 @@ const Chat = ({ myApps }: { myApps: AppListItemType[] }) => {
         // reset all chat tore
         if (e?.code === 501) {
           setLastChatAppId('');
-          router.replace('/account/info');
+          router.replace('/app/list');
         } else {
           router.replace({
             query: {
@@ -243,7 +243,7 @@ const Render = (props: { appId: string; isStandalone?: string }) => {
           status: 'error',
           title: t('common:core.chat.You need to a chat app')
         });
-        router.replace('/account/info');
+        router.replace('/app/list');
       } else {
         router.replace({
           query: {

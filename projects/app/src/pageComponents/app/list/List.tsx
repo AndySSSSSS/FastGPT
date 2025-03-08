@@ -36,6 +36,7 @@ import { useSystem } from '@fastgpt/web/hooks/useSystem';
 import { useChatStore } from '@/web/core/chat/context/useChatStore';
 import { RequireOnlyOne } from '@fastgpt/global/common/type/utils';
 import UserBox from '@fastgpt/web/components/common/UserBox';
+import { useUserStore } from '@/web/support/user/useUserStore';
 const HttpEditModal = dynamic(() => import('./HttpPluginEditModal'));
 
 const ListItem = () => {
@@ -43,6 +44,7 @@ const ListItem = () => {
   const router = useRouter();
   const { parentId = null } = router.query;
   const { isPc } = useSystem();
+  const { userInfo } = useUserStore();
 
   const { openConfirm: openMoveConfirm, ConfirmModal: MoveConfirmModal } = useConfirm({
     type: 'common',
@@ -184,7 +186,11 @@ const ListItem = () => {
                       }
                     });
                   } else if (app.permission.hasWritePer) {
-                    router.push(`/app/detail?appId=${app._id}`);
+                    if (userInfo?.username == 'root') {
+                      router.push(`/app/detail?appId=${app._id}`);
+                    } else {
+                      router.push(`/chat?appId=${app._id}`);
+                    }
                   } else {
                     router.push(`/chat?appId=${app._id}`);
                   }
