@@ -9,11 +9,14 @@ import { useContextSelector } from 'use-context-selector';
 import { ChatContext } from '@/web/core/chat/context/chatContext';
 import { ChatItemContext } from '@/web/core/chat/context/chatItemContext';
 import { useRouter } from 'next/router';
+import { useUserStore } from '@/web/support/user/useUserStore';
 
 const ToolMenu = ({ history }: { history: ChatItemType[] }) => {
   const router = useRouter();
   const { t } = useTranslation();
   const { onExportChat } = useChatBox();
+
+  const { userInfo } = useUserStore();
 
   const onChangeChatId = useContextSelector(ChatContext, (v) => v.onChangeChatId);
   const chatData = useContextSelector(ChatItemContext, (v) => v.chatBoxData);
@@ -60,7 +63,7 @@ const ToolMenu = ({ history }: { history: ChatItemType[] }) => {
             // }
           ]
         },
-        ...(showRouteToAppDetail
+        ...(showRouteToAppDetail && userInfo?.username == 'root'
           ? [
               {
                 children: [

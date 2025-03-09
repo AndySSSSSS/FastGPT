@@ -96,7 +96,7 @@ const ChatHistorySlider = ({ confirmClearText }: { confirmClearText: string }) =
       borderRight={['', theme.borders.base]}
       whiteSpace={'nowrap'}
     >
-      {isPc && (
+      {isPc && userInfo?.username == 'root' && (
         <MyTooltip label={canRouteToDetail ? t('app:app_detail') : ''} offset={[0, 0]}>
           <Flex
             pt={5}
