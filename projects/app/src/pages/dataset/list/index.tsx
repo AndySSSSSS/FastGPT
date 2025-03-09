@@ -209,7 +209,7 @@ const Dataset = () => {
           </Box>
         </Flex>
 
-        {!!folderDetail && isPc && (
+        {!!folderDetail && isPc && userInfo?.username == 'root' && (
           <Box ml="6">
             <FolderSlideCard
               resumeInheritPermission={() => resumeInheritPer(folderDetail._id)}

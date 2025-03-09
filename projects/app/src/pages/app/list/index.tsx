@@ -297,7 +297,7 @@ const MyApps = () => {
         </Flex>
 
         {/* Folder slider */}
-        {!!folderDetail && isPc && (
+        {!!folderDetail && isPc && userInfo?.username == 'root' && (
           <Box pt={[4, 6]} pr={[4, 6]}>
             <FolderSlideCard
               refetchResource={() => Promise.all([refetchFolderDetail(), loadMyApps()])}
