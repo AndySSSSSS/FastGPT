@@ -32,11 +32,16 @@ import { useSystem } from '@fastgpt/web/hooks/useSystem';
 import SideTag from './SideTag';
 import { getModelProvider } from '@fastgpt/global/core/ai/provider';
 import UserBox from '@fastgpt/web/components/common/UserBox';
+import { useUserStore } from '@/web/support/user/useUserStore';
+import user from '@fastgpt/global/common/error/code/user';
+import { useToast } from '@fastgpt/web/hooks/useToast';
 
 const EditResourceModal = dynamic(() => import('@/components/common/Modal/EditResourceModal'));
 
 function List() {
   const { setLoading } = useSystemStore();
+  const { userInfo } = useUserStore();
+  const { toast } = useToast();
   const { isPc } = useSystem();
   const { t } = useTranslation();
   const {
@@ -208,12 +213,19 @@ function List() {
                         }
                       });
                     } else {
-                      router.push({
-                        pathname: '/dataset/detail',
-                        query: {
-                          datasetId: dataset._id
-                        }
-                      });
+                      if (userInfo?.username != 'root') {
+                        toast({
+                          status: 'warning',
+                          title: t('dataset.data.Can not edit')
+                        });
+                      } else {
+                        router.push({
+                          pathname: '/dataset/detail',
+                          query: {
+                            datasetId: dataset._id
+                          }
+                        });
+                      }
                     }
                   }}
                 >
@@ -284,105 +296,106 @@ function List() {
                       )}
                       {(dataset.type === DatasetTypeEnum.folder
                         ? dataset.permission.hasManagePer
-                        : dataset.permission.hasWritePer) && (
-                        <Box
-                          className="more"
-                          display={['', 'none']}
-                          borderRadius={'md'}
-                          _hover={{
-                            '& .icon': {
-                              bg: 'myGray.100'
-                            }
-                          }}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                          }}
-                        >
-                          <MyMenu
-                            Button={
-                              <Box w={'22px'} h={'22px'}>
-                                <MyIcon
-                                  className="icon"
-                                  name={'more'}
-                                  h={'16px'}
-                                  w={'16px'}
-                                  px={1}
-                                  py={1}
-                                  borderRadius={'md'}
-                                  cursor={'pointer'}
-                                />
-                              </Box>
-                            }
-                            menuList={[
-                              {
-                                children: [
-                                  {
-                                    icon: 'edit',
-                                    label: t('common:dataset.Edit Info'),
-                                    onClick: () =>
-                                      setEditedDataset({
-                                        id: dataset._id,
-                                        name: dataset.name,
-                                        intro: dataset.intro,
-                                        avatar: dataset.avatar
-                                      })
-                                  },
-                                  ...((parentDataset ? parentDataset : dataset)?.permission
-                                    .hasManagePer
-                                    ? [
-                                        {
-                                          icon: 'common/file/move',
-                                          label: t('common:Move'),
-                                          onClick: () => {
-                                            setMoveDatasetId(dataset._id);
-                                          }
-                                        }
-                                      ]
-                                    : []),
-                                  ...(dataset.permission.hasManagePer
-                                    ? [
-                                        {
-                                          icon: 'key',
-                                          label: t('common:permission.Permission'),
-                                          onClick: () => setEditPerDatasetIndex(index)
-                                        }
-                                      ]
-                                    : [])
-                                ]
-                              },
-                              ...(dataset.type != DatasetTypeEnum.folder
-                                ? [
+                        : dataset.permission.hasWritePer) &&
+                        userInfo?.username == 'root' && (
+                          <Box
+                            className="more"
+                            display={['', 'none']}
+                            borderRadius={'md'}
+                            _hover={{
+                              '& .icon': {
+                                bg: 'myGray.100'
+                              }
+                            }}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                            }}
+                          >
+                            <MyMenu
+                              Button={
+                                <Box w={'22px'} h={'22px'}>
+                                  <MyIcon
+                                    className="icon"
+                                    name={'more'}
+                                    h={'16px'}
+                                    w={'16px'}
+                                    px={1}
+                                    py={1}
+                                    borderRadius={'md'}
+                                    cursor={'pointer'}
+                                  />
+                                </Box>
+                              }
+                              menuList={[
+                                {
+                                  children: [
                                     {
-                                      children: [
-                                        {
-                                          icon: 'export',
-                                          label: t('common:Export'),
-                                          onClick: () => {
-                                            exportDataset(dataset);
+                                      icon: 'edit',
+                                      label: t('common:dataset.Edit Info'),
+                                      onClick: () =>
+                                        setEditedDataset({
+                                          id: dataset._id,
+                                          name: dataset.name,
+                                          intro: dataset.intro,
+                                          avatar: dataset.avatar
+                                        })
+                                    },
+                                    ...((parentDataset ? parentDataset : dataset)?.permission
+                                      .hasManagePer
+                                      ? [
+                                          {
+                                            icon: 'common/file/move',
+                                            label: t('common:Move'),
+                                            onClick: () => {
+                                              setMoveDatasetId(dataset._id);
+                                            }
                                           }
-                                        }
-                                      ]
-                                    }
+                                        ]
+                                      : []),
+                                    ...(dataset.permission.hasManagePer
+                                      ? [
+                                          {
+                                            icon: 'key',
+                                            label: t('common:permission.Permission'),
+                                            onClick: () => setEditPerDatasetIndex(index)
+                                          }
+                                        ]
+                                      : [])
                                   ]
-                                : []),
-                              ...(dataset.permission.hasManagePer
-                                ? [
-                                    {
-                                      children: [
-                                        {
-                                          icon: 'delete',
-                                          label: t('common:common.Delete'),
-                                          type: 'danger' as 'danger',
-                                          onClick: () => onClickDeleteDataset(dataset._id)
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                : [])
-                            ]}
-                          />
-                        </Box>
-                      )}
+                                },
+                                ...(dataset.type != DatasetTypeEnum.folder
+                                  ? [
+                                      {
+                                        children: [
+                                          {
+                                            icon: 'export',
+                                            label: t('common:Export'),
+                                            onClick: () => {
+                                              exportDataset(dataset);
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  : []),
+                                ...(dataset.permission.hasManagePer
+                                  ? [
+                                      {
+                                        children: [
+                                          {
+                                            icon: 'delete',
+                                            label: t('common:common.Delete'),
+                                            type: 'danger' as 'danger',
+                                            onClick: () => onClickDeleteDataset(dataset._id)
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  : [])
+                              ]}
+                            />
+                          </Box>
+                        )}
                     </HStack>
                   </Flex>
                 </MyBox>

@@ -148,7 +148,7 @@ const ListItem = () => {
               label={
                 app.type === AppTypeEnum.folder
                   ? t('common:common.folder.Open folder')
-                  : app.permission.hasWritePer
+                  : app.permission.hasWritePer && userInfo?.username == 'root'
                     ? t('app:edit_app')
                     : t('app:go_to_chat')
               }
@@ -253,144 +253,145 @@ const ListItem = () => {
                     )}
                     {(AppFolderTypeList.includes(app.type)
                       ? app.permission.hasManagePer
-                      : app.permission.hasWritePer) && (
-                      <Box className="more" display={['', 'none']}>
-                        <MyMenu
-                          size={'xs'}
-                          Button={
-                            <IconButton
-                              size={'xsSquare'}
-                              variant={'transparentBase'}
-                              icon={<MyIcon name={'more'} w={'0.875rem'} color={'myGray.500'} />}
-                              aria-label={''}
-                            />
-                          }
-                          menuList={[
-                            ...([AppTypeEnum.simple, AppTypeEnum.workflow].includes(app.type)
-                              ? [
-                                  {
-                                    children: [
-                                      {
-                                        icon: 'core/chat/chatLight',
-                                        type: 'grayBg' as MenuItemType,
-                                        label: t('app:go_to_chat'),
-                                        onClick: () => {
-                                          router.push(`/chat?appId=${app._id}`);
-                                        }
-                                      }
-                                    ]
-                                  }
-                                ]
-                              : []),
-                            ...([AppTypeEnum.plugin].includes(app.type)
-                              ? [
-                                  {
-                                    children: [
-                                      {
-                                        icon: 'core/chat/chatLight',
-                                        type: 'grayBg' as MenuItemType,
-                                        label: t('app:go_to_run'),
-                                        onClick: () => {
-                                          router.push(`/chat?appId=${app._id}`);
-                                        }
-                                      }
-                                    ]
-                                  }
-                                ]
-                              : []),
-                            ...(app.permission.hasManagePer
-                              ? [
-                                  {
-                                    children: [
-                                      {
-                                        icon: 'edit',
-                                        type: 'grayBg' as MenuItemType,
-                                        label: t('common:dataset.Edit Info'),
-                                        onClick: () => {
-                                          if (app.type === AppTypeEnum.httpPlugin) {
-                                            setEditHttpPlugin({
-                                              id: app._id,
-                                              name: app.name,
-                                              avatar: app.avatar,
-                                              intro: app.intro,
-                                              pluginData: app.pluginData
-                                            });
-                                          } else {
-                                            setEditedApp({
-                                              id: app._id,
-                                              avatar: app.avatar,
-                                              name: app.name,
-                                              intro: app.intro
-                                            });
+                      : app.permission.hasWritePer) &&
+                      userInfo?.username == 'root' && (
+                        <Box className="more" display={['', 'none']}>
+                          <MyMenu
+                            size={'xs'}
+                            Button={
+                              <IconButton
+                                size={'xsSquare'}
+                                variant={'transparentBase'}
+                                icon={<MyIcon name={'more'} w={'0.875rem'} color={'myGray.500'} />}
+                                aria-label={''}
+                              />
+                            }
+                            menuList={[
+                              ...([AppTypeEnum.simple, AppTypeEnum.workflow].includes(app.type)
+                                ? [
+                                    {
+                                      children: [
+                                        {
+                                          icon: 'core/chat/chatLight',
+                                          type: 'grayBg' as MenuItemType,
+                                          label: t('app:go_to_chat'),
+                                          onClick: () => {
+                                            router.push(`/chat?appId=${app._id}`);
                                           }
                                         }
-                                      },
-                                      ...(folderDetail?.type === AppTypeEnum.httpPlugin &&
-                                      !(parentApp ? parentApp.permission : app.permission)
-                                        .hasManagePer
-                                        ? []
-                                        : [
-                                            {
-                                              icon: 'common/file/move',
-                                              type: 'grayBg' as MenuItemType,
-                                              label: t('common:common.folder.Move to'),
-                                              onClick: () => setMoveAppId(app._id)
+                                      ]
+                                    }
+                                  ]
+                                : []),
+                              ...([AppTypeEnum.plugin].includes(app.type)
+                                ? [
+                                    {
+                                      children: [
+                                        {
+                                          icon: 'core/chat/chatLight',
+                                          type: 'grayBg' as MenuItemType,
+                                          label: t('app:go_to_run'),
+                                          onClick: () => {
+                                            router.push(`/chat?appId=${app._id}`);
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                : []),
+                              ...(app.permission.hasManagePer
+                                ? [
+                                    {
+                                      children: [
+                                        {
+                                          icon: 'edit',
+                                          type: 'grayBg' as MenuItemType,
+                                          label: t('common:dataset.Edit Info'),
+                                          onClick: () => {
+                                            if (app.type === AppTypeEnum.httpPlugin) {
+                                              setEditHttpPlugin({
+                                                id: app._id,
+                                                name: app.name,
+                                                avatar: app.avatar,
+                                                intro: app.intro,
+                                                pluginData: app.pluginData
+                                              });
+                                            } else {
+                                              setEditedApp({
+                                                id: app._id,
+                                                avatar: app.avatar,
+                                                name: app.name,
+                                                intro: app.intro
+                                              });
                                             }
-                                          ]),
-                                      ...(app.permission.hasManagePer
-                                        ? [
-                                            {
-                                              icon: 'key',
-                                              type: 'grayBg' as MenuItemType,
-                                              label: t('common:permission.Permission'),
-                                              onClick: () => setEditPerAppIndex(index)
-                                            }
-                                          ]
-                                        : [])
-                                    ]
-                                  }
-                                ]
-                              : []),
-                            ...(AppFolderTypeList.includes(app.type)
-                              ? []
-                              : [
-                                  {
-                                    children: [
-                                      {
-                                        icon: 'copy',
-                                        type: 'grayBg' as MenuItemType,
-                                        label: t('app:copy_one_app'),
-                                        onClick: () =>
-                                          openConfirmCopy(() => onclickCopy({ appId: app._id }))()
-                                      }
-                                    ]
-                                  }
-                                ]),
-                            ...(app.permission.isOwner
-                              ? [
-                                  {
-                                    children: [
-                                      {
-                                        type: 'danger' as 'danger',
-                                        icon: 'delete',
-                                        label: t('common:common.Delete'),
-                                        onClick: () =>
-                                          openConfirmDel(
-                                            () => onclickDelApp(app._id),
-                                            undefined,
-                                            app.type === AppTypeEnum.folder
-                                              ? t('app:confirm_delete_folder_tip')
-                                              : t('app:confirm_del_app_tip', { name: app.name })
-                                          )()
-                                      }
-                                    ]
-                                  }
-                                ]
-                              : [])
-                          ]}
-                        />
-                      </Box>
-                    )}
+                                          }
+                                        },
+                                        ...(folderDetail?.type === AppTypeEnum.httpPlugin &&
+                                        !(parentApp ? parentApp.permission : app.permission)
+                                          .hasManagePer
+                                          ? []
+                                          : [
+                                              {
+                                                icon: 'common/file/move',
+                                                type: 'grayBg' as MenuItemType,
+                                                label: t('common:common.folder.Move to'),
+                                                onClick: () => setMoveAppId(app._id)
+                                              }
+                                            ]),
+                                        ...(app.permission.hasManagePer
+                                          ? [
+                                              {
+                                                icon: 'key',
+                                                type: 'grayBg' as MenuItemType,
+                                                label: t('common:permission.Permission'),
+                                                onClick: () => setEditPerAppIndex(index)
+                                              }
+                                            ]
+                                          : [])
+                                      ]
+                                    }
+                                  ]
+                                : []),
+                              ...(AppFolderTypeList.includes(app.type)
+                                ? []
+                                : [
+                                    {
+                                      children: [
+                                        {
+                                          icon: 'copy',
+                                          type: 'grayBg' as MenuItemType,
+                                          label: t('app:copy_one_app'),
+                                          onClick: () =>
+                                            openConfirmCopy(() => onclickCopy({ appId: app._id }))()
+                                        }
+                                      ]
+                                    }
+                                  ]),
+                              ...(app.permission.isOwner
+                                ? [
+                                    {
+                                      children: [
+                                        {
+                                          type: 'danger' as 'danger',
+                                          icon: 'delete',
+                                          label: t('common:common.Delete'),
+                                          onClick: () =>
+                                            openConfirmDel(
+                                              () => onclickDelApp(app._id),
+                                              undefined,
+                                              app.type === AppTypeEnum.folder
+                                                ? t('app:confirm_delete_folder_tip')
+                                                : t('app:confirm_del_app_tip', { name: app.name })
+                                            )()
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                : [])
+                            ]}
+                          />
+                        </Box>
+                      )}
                   </HStack>
                 </Flex>
               </MyBox>

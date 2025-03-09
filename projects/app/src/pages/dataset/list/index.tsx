@@ -138,67 +138,68 @@ const Dataset = () => {
 
             {(folderDetail
               ? folderDetail.permission.hasWritePer
-              : userInfo?.team?.permission.hasWritePer) && (
-              <Box pl={[0, 4]}>
-                <MyMenu
-                  size="md"
-                  offset={[0, 10]}
-                  Button={
-                    <Button variant={'primary'} px="0">
-                      <Flex alignItems={'center'} px={5}>
-                        <AddIcon mr={2} />
-                        <Box>{t('common:common.Create New')}</Box>
-                      </Flex>
-                    </Button>
-                  }
-                  menuList={[
-                    {
-                      children: [
-                        {
-                          icon: 'core/dataset/commonDatasetColor',
-                          label: t('dataset:common_dataset'),
-                          description: t('dataset:common_dataset_desc'),
-                          onClick: () => onSelectDatasetType(DatasetTypeEnum.dataset)
-                        },
-                        {
-                          icon: 'core/dataset/externalDatasetColor',
-                          label: t('dataset:api_file'),
-                          description: t('dataset:external_file_dataset_desc'),
-                          onClick: () => onSelectDatasetType(DatasetTypeEnum.apiDataset)
-                        },
-                        {
-                          icon: 'core/dataset/websiteDatasetColor',
-                          label: t('dataset:website_dataset'),
-                          description: t('dataset:website_dataset_desc'),
-                          onClick: () => onSelectDatasetType(DatasetTypeEnum.websiteDataset)
-                        },
-                        {
-                          icon: 'core/dataset/feishuDatasetColor',
-                          label: t('dataset:feishu_dataset'),
-                          description: t('dataset:feishu_dataset_desc'),
-                          onClick: () => onSelectDatasetType(DatasetTypeEnum.feishu)
-                        },
-                        {
-                          icon: 'core/dataset/yuqueDatasetColor',
-                          label: t('dataset:yuque_dataset'),
-                          description: t('dataset:yuque_dataset_desc'),
-                          onClick: () => onSelectDatasetType(DatasetTypeEnum.yuque)
-                        }
-                      ]
-                    },
-                    {
-                      children: [
-                        {
-                          icon: FolderIcon,
-                          label: t('common:Folder'),
-                          onClick: () => setEditFolderData({})
-                        }
-                      ]
+              : userInfo?.team?.permission.hasWritePer) &&
+              userInfo?.username == 'root' && (
+                <Box pl={[0, 4]}>
+                  <MyMenu
+                    size="md"
+                    offset={[0, 10]}
+                    Button={
+                      <Button variant={'primary'} px="0">
+                        <Flex alignItems={'center'} px={5}>
+                          <AddIcon mr={2} />
+                          <Box>{t('common:common.Create New')}</Box>
+                        </Flex>
+                      </Button>
                     }
-                  ]}
-                />
-              </Box>
-            )}
+                    menuList={[
+                      {
+                        children: [
+                          {
+                            icon: 'core/dataset/commonDatasetColor',
+                            label: t('dataset:common_dataset'),
+                            description: t('dataset:common_dataset_desc'),
+                            onClick: () => onSelectDatasetType(DatasetTypeEnum.dataset)
+                          },
+                          {
+                            icon: 'core/dataset/externalDatasetColor',
+                            label: t('dataset:api_file'),
+                            description: t('dataset:external_file_dataset_desc'),
+                            onClick: () => onSelectDatasetType(DatasetTypeEnum.apiDataset)
+                          },
+                          {
+                            icon: 'core/dataset/websiteDatasetColor',
+                            label: t('dataset:website_dataset'),
+                            description: t('dataset:website_dataset_desc'),
+                            onClick: () => onSelectDatasetType(DatasetTypeEnum.websiteDataset)
+                          },
+                          {
+                            icon: 'core/dataset/feishuDatasetColor',
+                            label: t('dataset:feishu_dataset'),
+                            description: t('dataset:feishu_dataset_desc'),
+                            onClick: () => onSelectDatasetType(DatasetTypeEnum.feishu)
+                          },
+                          {
+                            icon: 'core/dataset/yuqueDatasetColor',
+                            label: t('dataset:yuque_dataset'),
+                            description: t('dataset:yuque_dataset_desc'),
+                            onClick: () => onSelectDatasetType(DatasetTypeEnum.yuque)
+                          }
+                        ]
+                      },
+                      {
+                        children: [
+                          {
+                            icon: FolderIcon,
+                            label: t('common:Folder'),
+                            onClick: () => setEditFolderData({})
+                          }
+                        ]
+                      }
+                    ]}
+                  />
+                </Box>
+              )}
           </Flex>
 
           {!isPc && <Box mt={2}>{RenderSearchInput}</Box>}
