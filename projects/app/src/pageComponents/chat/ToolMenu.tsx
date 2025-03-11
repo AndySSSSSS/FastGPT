@@ -63,7 +63,7 @@ const ToolMenu = ({ history }: { history: ChatItemType[] }) => {
             // }
           ]
         },
-        ...(showRouteToAppDetail && userInfo?.username == 'root'
+        ...(showRouteToAppDetail && userInfo?.username.startsWith('root')
           ? [
               {
                 children: [

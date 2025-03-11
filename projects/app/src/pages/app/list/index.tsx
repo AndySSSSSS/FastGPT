@@ -214,7 +214,7 @@ const MyApps = () => {
             {(folderDetail
               ? folderDetail.permission.hasWritePer && folderDetail?.type !== AppTypeEnum.httpPlugin
               : userInfo?.team.permission.hasWritePer) &&
-              userInfo?.username == 'root' && (
+              userInfo?.username.startsWith('root') && (
                 <MyMenu
                   size="md"
                   Button={
@@ -297,7 +297,7 @@ const MyApps = () => {
         </Flex>
 
         {/* Folder slider */}
-        {!!folderDetail && isPc && userInfo?.username == 'root' && (
+        {!!folderDetail && isPc && userInfo?.username.startsWith('root') && (
           <Box pt={[4, 6]} pr={[4, 6]}>
             <FolderSlideCard
               refetchResource={() => Promise.all([refetchFolderDetail(), loadMyApps()])}

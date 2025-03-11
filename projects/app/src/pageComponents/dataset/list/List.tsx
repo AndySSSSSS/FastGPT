@@ -297,7 +297,7 @@ function List() {
                       {(dataset.type === DatasetTypeEnum.folder
                         ? dataset.permission.hasManagePer
                         : dataset.permission.hasWritePer) &&
-                        userInfo?.username == 'root' && (
+                        userInfo?.username.startsWith('root') && (
                           <Box
                             className="more"
                             display={['', 'none']}

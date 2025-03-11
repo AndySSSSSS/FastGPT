@@ -43,7 +43,7 @@ const Navbar = ({ unread }: { unread: number }) => {
   const { lastChatAppId } = useChatStore();
 
   const navbarList = useMemo(() => {
-    if (userInfo?.username == 'root') {
+    if (userInfo?.username.startsWith('root')) {
       return [
         {
           label: t('common:navbar.Chat'),

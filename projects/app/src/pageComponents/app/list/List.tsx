@@ -148,7 +148,7 @@ const ListItem = () => {
               label={
                 app.type === AppTypeEnum.folder
                   ? t('common:common.folder.Open folder')
-                  : app.permission.hasWritePer && userInfo?.username == 'root'
+                  : app.permission.hasWritePer && userInfo?.username.startsWith('root')
                     ? t('app:edit_app')
                     : t('app:go_to_chat')
               }
@@ -186,7 +186,7 @@ const ListItem = () => {
                       }
                     });
                   } else if (app.permission.hasWritePer) {
-                    if (userInfo?.username == 'root') {
+                    if (userInfo?.username.startsWith('root')) {
                       router.push(`/app/detail?appId=${app._id}`);
                     } else {
                       router.push(`/chat?appId=${app._id}`);
@@ -254,7 +254,7 @@ const ListItem = () => {
                     {(AppFolderTypeList.includes(app.type)
                       ? app.permission.hasManagePer
                       : app.permission.hasWritePer) &&
-                      userInfo?.username == 'root' && (
+                      userInfo?.username.startsWith('root') && (
                         <Box className="more" display={['', 'none']}>
                           <MyMenu
                             size={'xs'}

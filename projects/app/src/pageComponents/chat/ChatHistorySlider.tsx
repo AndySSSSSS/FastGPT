@@ -79,7 +79,7 @@ const ChatHistorySlider = ({ confirmClearText }: { confirmClearText: string }) =
   const canRouteToDetail = useMemo(
     () =>
       appId &&
-      userInfo?.username == 'root' &&
+      userInfo?.username.startsWith('root') &&
       userInfo?.team.permission.hasWritePer &&
       showRouteToAppDetail,
     [appId, userInfo?.team.permission.hasWritePer, showRouteToAppDetail]
@@ -96,7 +96,7 @@ const ChatHistorySlider = ({ confirmClearText }: { confirmClearText: string }) =
       borderRight={['', theme.borders.base]}
       whiteSpace={'nowrap'}
     >
-      {isPc && userInfo?.username == 'root' && (
+      {isPc && userInfo?.username.startsWith('root') && (
         <MyTooltip label={canRouteToDetail ? t('app:app_detail') : ''} offset={[0, 0]}>
           <Flex
             pt={5}

@@ -139,7 +139,7 @@ const Dataset = () => {
             {(folderDetail
               ? folderDetail.permission.hasWritePer
               : userInfo?.team?.permission.hasWritePer) &&
-              userInfo?.username == 'root' && (
+              userInfo?.username.startsWith('root') && (
                 <Box pl={[0, 4]}>
                   <MyMenu
                     size="md"
@@ -209,7 +209,7 @@ const Dataset = () => {
           </Box>
         </Flex>
 
-        {!!folderDetail && isPc && userInfo?.username == 'root' && (
+        {!!folderDetail && isPc && userInfo?.username.startsWith('root') && (
           <Box ml="6">
             <FolderSlideCard
               resumeInheritPermission={() => resumeInheritPer(folderDetail._id)}

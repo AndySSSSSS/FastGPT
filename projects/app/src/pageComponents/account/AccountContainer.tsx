@@ -72,7 +72,7 @@ const AccountContainer = ({
           }
         ]
       : []),
-    ...(userInfo?.username == 'root'
+    ...(userInfo?.username.startsWith('root')
       ? [
           {
             icon: 'common/thirdParty',
@@ -95,7 +95,7 @@ const AccountContainer = ({
           }
         ]
       : []),
-    ...(userInfo?.team?.permission.hasManagePer && userInfo?.username == 'root'
+    ...(userInfo?.team?.permission.hasManagePer && userInfo?.username.startsWith('root')
       ? [
           {
             icon: 'key',
@@ -164,7 +164,7 @@ const AccountContainer = ({
               value={currentTab}
               onChange={setCurrentTab}
             />
-            {userInfo?.username == 'root' ? (
+            {userInfo?.username.startsWith('root') ? (
               <Flex alignItems={'center'}>
                 <Box w={'8px'} h={'8px'} borderRadius={'50%'} bg={'#67c13b'} />
                 <Box fontSize={'md'} ml={2}>
