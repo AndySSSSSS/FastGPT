@@ -213,7 +213,7 @@ function List() {
                         }
                       });
                     } else {
-                      if (userInfo?.username != 'root') {
+                      if (!userInfo?.username.startsWith('root')) {
                         toast({
                           status: 'warning',
                           title: t('dataset.data.Can not edit')
