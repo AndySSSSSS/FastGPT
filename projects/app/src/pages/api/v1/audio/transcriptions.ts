@@ -92,7 +92,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
     });
   }
 
-  removeFilesByPaths(filePaths);
+  // removeFilesByPaths(filePaths);
 }
 
 export default NextAPI(
