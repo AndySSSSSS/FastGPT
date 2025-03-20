@@ -6,16 +6,14 @@ import { getSTTModel } from '../model';
 
 export const aiTranscriptions = async ({
   model,
-  fileStream,
-  filePath
+  fileStream
 }: {
   model: string;
   fileStream: fs.ReadStream;
-  filePath: string;
 }) => {
   const data = new FormData();
   data.append('model', model);
-  data.append('file', fileStream);
+  data.append('fileStream', fileStream);
 
   const modelData = getSTTModel(model);
   const aiAxiosConfig = getAxiosConfig();
@@ -30,8 +28,6 @@ export const aiTranscriptions = async ({
         }
   );
   console.log('-------------------------------------------');
-  console.log(filePath);
-  console.log('-------------------------------------------');
 
   const { data: result } = await axios<{ text: string }>({
     method: 'post',
@@ -41,13 +37,13 @@ export const aiTranscriptions = async ({
           baseURL: aiAxiosConfig.baseUrl,
           url: '/audio/transcriptions'
         }),
+    data
     // headers: {
     //   Authorization: modelData.requestAuth
     //     ? `Bearer ${modelData.requestAuth}`
     //     : aiAxiosConfig.authorization,
     //   ...data.getHeaders()
     // },
-    data: { data: filePath }
   });
 
   return result;

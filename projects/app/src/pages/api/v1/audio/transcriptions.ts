@@ -71,8 +71,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
 
     const result = await aiTranscriptions({
       model: getDefaultSTTModel().model,
-      fileStream: fs.createReadStream(file.path),
-      filePath: file.path
+      fileStream: fs.createReadStream(file.path)
     });
 
     pushWhisperUsage({
@@ -92,7 +91,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
     });
   }
 
-  // removeFilesByPaths(filePaths);
+  removeFilesByPaths(filePaths);
 }
 
 export default NextAPI(
