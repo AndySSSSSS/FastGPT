@@ -44,6 +44,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
     if (!file) {
       throw new Error('file not found');
     }
+    console.log('-------------------------------------------');
+    console.log(file);
+    console.log('-------------------------------------------');
+
     if (duration === undefined) {
       throw new Error('duration not found');
     }
@@ -67,7 +71,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
 
     const result = await aiTranscriptions({
       model: getDefaultSTTModel().model,
-      fileStream: fs.createReadStream(file.path)
+      fileStream: fs.createReadStream(file.path),
+      filePath: file.path
     });
 
     pushWhisperUsage({
