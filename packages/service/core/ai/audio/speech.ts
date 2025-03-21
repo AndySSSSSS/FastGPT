@@ -1,6 +1,7 @@
 import type { NextApiResponse } from 'next';
-import { getAIApi } from '../config';
+import { getAIApi, openaiBaseUrl } from '../config';
 import { getTTSModel } from '../model';
+import { OpenaiAccountType } from '@fastgpt/global/support/user/team/type';
 
 export async function text2Speech({
   res,
@@ -20,7 +21,14 @@ export async function text2Speech({
   speed?: number;
 }) {
   const modelData = getTTSModel(model)!;
-  const ai = getAIApi();
+  const myOpenAIAccount: OpenaiAccountType = {
+    key: modelData.requestAuth || '', // 替换为你的实际的key
+    baseUrl: modelData.requestUrl || '' // 替换为你的baseUrl
+  };
+  const ai = getAIApi({
+    userKey: myOpenAIAccount
+  });
+
   const response = await ai.audio.speech.create(
     {
       model,
@@ -29,15 +37,15 @@ export async function text2Speech({
       input,
       response_format: 'mp3',
       speed
-    },
-    modelData.requestUrl && modelData.requestAuth
-      ? {
-          path: modelData.requestUrl,
-          headers: {
-            Authorization: `Bearer ${modelData.requestAuth}`
-          }
-        }
-      : {}
+    }
+    // modelData.requestUrl && modelData.requestAuth
+    //   ? {
+    //       path: modelData.requestUrl,
+    //       headers: {
+    //         Authorization: `Bearer ${modelData.requestAuth}`
+    //       }
+    //     }
+    //   : {}
   );
 
   const readableStream = response.body as unknown as NodeJS.ReadableStream;
