@@ -17,6 +17,7 @@ import { aiTranscriptions } from '@fastgpt/service/core/ai/audio/transcriptions'
 import { isProduction } from '@fastgpt/global/common/system/constants';
 import * as fs from 'fs';
 import { llmCompletionsBodyFormat } from '@fastgpt/service/core/ai/utils';
+import { OpenaiAccountType } from '@fastgpt/global/support/user/team/type';
 
 export type testQuery = { model: string };
 
@@ -95,7 +96,12 @@ const testEmbeddingModel = async (model: EmbeddingModelItemType) => {
 };
 
 const testTTSModel = async (model: TTSModelType) => {
+  const myOpenAIAccount: OpenaiAccountType = {
+    key: model.requestAuth || '', // 替换为你的实际的key
+    baseUrl: model.requestUrl || '' // 替换为你的baseUrl
+  };
   const ai = getAIApi({
+    userKey: myOpenAIAccount,
     timeout: 10000
   });
   await ai.audio.speech.create(
@@ -105,17 +111,17 @@ const testTTSModel = async (model: TTSModelType) => {
       input: 'Hi',
       response_format: 'mp3',
       speed: 1
-    },
-    model.requestUrl
-      ? {
-          path: model.requestUrl,
-          headers: model.requestAuth
-            ? {
-                Authorization: `Bearer ${model.requestAuth}`
-              }
-            : undefined
-        }
-      : {}
+    }
+    // model.requestUrl
+    //   ? {
+    //       path: model.requestUrl,
+    //       headers: model.requestAuth
+    //         ? {
+    //             Authorization: `Bearer ${model.requestAuth}`
+    //           }
+    //         : undefined
+    //     }
+    //   : {}
   );
 };
 
